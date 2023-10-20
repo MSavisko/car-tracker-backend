@@ -21,10 +21,10 @@ export class Car {
   odometerType: 'km' | 'mile' | 'h';
 
   @Column()
-  fuelType: 'Gasoline' | 'Diesel' | 'Electric' | 'Hybrid' | 'Other';
+  fuelType: 'gasoline' | 'diesel' | 'electric' | 'hybrid' | 'other';
 
   @Column()
-  fuelUnit: string;
+  fuelUnit: 'liter' | 'gal';
 
   @Column()
   tankCapacity: number;
@@ -39,7 +39,7 @@ export class Car {
   purchasePrice: number;
 
   @Column()
-  currency: 'USD' | 'EURO' | 'UAH';
+  currency: 'usd' | 'euro' | 'uah';
 
   @Column({ nullable: true })
   notes?: string;
