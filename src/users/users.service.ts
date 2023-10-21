@@ -17,8 +17,8 @@ export class UsersService {
             throw new ConflictException('Username already exists.');
         }
 
-        const salt = bcrypt.genSaltSync(10);
-        const hashedPassword = bcrypt.hashSync(password + salt, 10);
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(password + salt, salt);        
 
         const newUser = this.userRepository.create({
             username,
