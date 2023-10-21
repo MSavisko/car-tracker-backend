@@ -8,7 +8,7 @@ import { CarsModule } from './cars/cars.module';
       type: 'postgres',
       url: process.env.DB_URL,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true, // in development mode only
+      synchronize: true,
     }),
     CarsModule
   ],
