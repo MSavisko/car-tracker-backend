@@ -4,6 +4,8 @@ import { CarsModule } from './cars/cars.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { LoggingMiddleware } from './middlewares/logging.middleware';
+import { PrometheusMiddleware } from './middlewares/prometheus.middleware';
+import { MetricsModule } from './metrics/metrics.module';
 
 @Module({
   imports: [
@@ -15,7 +17,8 @@ import { LoggingMiddleware } from './middlewares/logging.middleware';
     }),
     CarsModule,
     AuthModule,
-    UsersModule
+    UsersModule,
+    MetricsModule
   ],
   controllers: [],
   providers: [],
@@ -23,8 +26,11 @@ import { LoggingMiddleware } from './middlewares/logging.middleware';
 
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(LoggingMiddleware)
-      .forRoutes('*');
+    consumer.apply(LoggingMiddleware).forRoutes('*');
+
+    const usePrometheus = process.env.USE_PROMETHEUS
+    if (usePrometheus) {
+      consumer.apply(PrometheusMiddleware).forRoutes('*');
+    }
   }
 }
